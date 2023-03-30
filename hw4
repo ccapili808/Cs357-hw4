@@ -1,10 +1,15 @@
 -- Exercise 1
 stutter :: [a] -> [a]
-stutter _ = undefined
+stutter [] = []
+stutter (x:xs) = x : x : stutter xs
 
 -- Exercise 2
 compress :: Eq a => [a] -> [a]
-compress _ = undefined
+compress [] = []
+compress [x] = [x] 
+compress (x:y:xs)
+  | x == y   = compress (y:xs)
+  | otherwise = x : compress(y:xs)
 
 -- Exercise 3
 findIndices :: Num b => (a -> Bool) -> [a] -> [b]
