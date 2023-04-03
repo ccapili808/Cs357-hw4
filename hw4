@@ -26,7 +26,11 @@ intersect ls1 ls2 = [x | x <- ls1, x `elem` ls2]
 
 -- Exercise 4
 isPrefixOf :: Eq a => [a] -> [a] -> Bool
-isPrefixOf _ _ = undefined
+isPrefixOf [] _ = True
+isPrefixOf _ [] = False
+isPrefixOf (x:xs) (y:ys)
+  | x == y = isPrefixOf xs ys
+  | otherwise = False
 
 -- Exercise 5
 isSuffixOf :: Eq a => [a] -> [a] -> Bool
