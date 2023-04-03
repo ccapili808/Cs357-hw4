@@ -13,7 +13,13 @@ compress (x:y:xs)
 
 -- Exercise 3
 findIndices :: Num b => (a -> Bool) -> [a] -> [b]
-findIndices _ _ = undefined
+findIndices predicate list = findIndicesHelper predicate list 0
+  where
+    findIndicesHelper _ [] _ = []
+    findIndicesHelper pred (x:xs) idx =
+      if pred x
+        then fromIntegral idx : findIndicesHelper pred xs (idx + 1)
+        else findIndicesHelper pred xs (idx + 1)
 
 intersect :: Eq a => [a] -> [a] -> [a]
 intersect _ _ = undefined
