@@ -40,12 +40,17 @@ isSuffixOf :: Eq a => [a] -> [a] -> Bool
 isSuffixOf suffix ls = suffix == drop (length ls - length suffix) ls
 
 -- Exercise 6
+-- Using zip from https://hoogle.haskell.org/?hoogle=zip
+-- Zip takes two lists and returns a list of corresponding pairs. 
+-- Use sum and zip for dot product!
 dot :: Num a => [a] -> [a] -> a
-dot _ _ = undefined
+dot u v = sum [x * y | (x, y) <- zip u v]
 
 -- Exercise 7
 increasing :: Ord a => [a] -> Bool
-increasing _ = undefined
+increasing [] = True
+increasing[x] = True
+increasing (x:y:xs) = x <= y && increasing(y:xs)
 
 -- Exercise 8
 decimate :: [a] -> [a]
