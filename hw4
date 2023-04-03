@@ -34,7 +34,10 @@ isPrefixOf (x:xs) (y:ys)
 
 -- Exercise 5
 isSuffixOf :: Eq a => [a] -> [a] -> Bool
-isSuffixOf _ _ = undefined
+-- According to https://hoogle.haskell.org/?hoogle=drop, drop can help here. 
+-- Remove the first n (length of suffix) items from the ls
+-- Then compare the suffix and the list after we call drop 
+isSuffixOf suffix ls = suffix == drop (length ls - length suffix) ls
 
 -- Exercise 6
 dot :: Num a => [a] -> [a] -> a
