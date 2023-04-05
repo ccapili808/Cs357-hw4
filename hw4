@@ -87,5 +87,15 @@ select _ _ _ = undefined
 -- which has those numbers as digits. For example,
 -- Each number needs to be multiplied by: 
 -- [1 2 3 4] -> 1234 
+-- Steps: 1) Reverse list, 2) start with first number in reversed list * 10^pwracc, where pwracc increments at each 
+-- number. 3) sum all results. 
+-- 4*10^0 + 3*10^1 + 2*10^2 + 1 * 10^3 = 1234
+-- The pdf says this must be tail recusrive. So the steps above are a little misleading. 
+-- Nevertheless, I will still be using the logic above, in a tail recursive way. 
 numbers :: [Integer] -> Integer
-numbers _ = undefined 
+numbers ls = helper (reverse ls) 0 0
+  where 
+    helper [] _ acc = acc
+    helper (i: ls) pwrAcc acc = let tailRecur = acc + i * 10^pwrAcc in helper ls (pwrAcc+1) tailRecur
+                          
+  
