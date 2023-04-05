@@ -1,15 +1,15 @@
 -- Exercise 1
 stutter :: [a] -> [a]
 stutter [] = []
-stutter (x:xs) = x : x : stutter xs
+stutter (x:ls) = x : x : stutter ls
 
 -- Exercise 2
 compress :: Eq a => [a] -> [a]
 compress [] = []
 compress [x] = [x] 
-compress (x:y:xs)
-  | x == y   = compress (y:xs)
-  | otherwise = x : compress(y:xs)
+compress (x:y:ls)
+  | x == y   = compress (y:ls)
+  | otherwise = x : compress(y:ls)
 
 -- Exercise 3
 -- I was orginally getting errors when using zip, so I had to do some research. 
@@ -30,11 +30,19 @@ intersect :: Eq a => [a] -> [a] -> [a]
 intersect ls1 ls2 = [x | x <- ls1, x `elem` ls2]
 
 -- Exercise 4
+{-
+The function isPrefixOf takes two lists as argument and returns True iff the first list is a prefix
+of the second list. For example,
+  *Main> "foo" ‘isPrefixOf‘ "foobar"
+True
+*Main> isPrefixOf [1,2,3] [4,5,6]
+False
+-}
 isPrefixOf :: Eq a => [a] -> [a] -> Bool
 isPrefixOf [] _ = True
 isPrefixOf _ [] = False
-isPrefixOf (x:xs) (y:ys)
-  | x == y = isPrefixOf xs ys
+isPrefixOf (x:ls) (y:ls2)
+  | x == y = isPrefixOf ls ls2
   | otherwise = False
 
 -- Exercise 5
@@ -55,7 +63,7 @@ dot u v = sum [x * y | (x, y) <- zip u v]
 increasing :: Ord a => [a] -> Bool
 increasing [] = True
 increasing[x] = True
-increasing (x:y:xs) = x <= y && increasing(y:xs)
+increasing (x:y:ls) = x <= y && increasing(y:ls)
 
 -- Exercise 8
 -- We need to eliminate every number where mod 10 is zero. 
