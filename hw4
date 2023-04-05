@@ -12,15 +12,20 @@ compress (x:y:xs)
   | otherwise = x : compress(y:xs)
 
 -- Exercise 3
+-- I was orginally getting errors when using zip, so I had to do some research. 
+-- According to https://wiki.haskell.org/Converting_numbers#:~:text=The%20workhorse%20for%20converting%20from,)%20%3D%3E%20a%20%2D%3E%20b
+-- From integral can handle the error I was getting with Num B. 
+-- Using a helper with an accumulator and recursion...
 findIndices :: Num b => (a -> Bool) -> [a] -> [b]
-findIndices predicate list = findIndicesHelper predicate list 0
+findIndices pred ls = findIndicesHelper pred ls 0
   where
     findIndicesHelper _ [] _ = []
-    findIndicesHelper pred (x:xs) idx =
+    findIndicesHelper pred (x:ls) i =
       if pred x
-        then fromIntegral idx : findIndicesHelper pred xs (idx + 1)
-        else findIndicesHelper pred xs (idx + 1)
+        then fromIntegral i : findIndicesHelper pred ls (i + 1)
+        else findIndicesHelper pred ls (i + 1)
 
+-- Using list comprehension with infix elem as our 'guard'
 intersect :: Eq a => [a] -> [a] -> [a]
 intersect ls1 ls2 = [x | x <- ls1, x `elem` ls2]
 
