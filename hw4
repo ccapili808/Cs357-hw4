@@ -63,8 +63,23 @@ decimate :: [a] -> [a]
 decimate ls = [x | (i, x) <- zip [1..] ls, i `mod` 10 /= 0]
 
 -- Exercise 9
+{-two lists of equal length and a third list. It uses
+the first two lists to define a substitution cipher which it uses to encipher the third list. For
+example,
+*Main> encipher [’A’..’Z’] [’a’..’z’] "THIS"
+"this"
+-- In essence, we have a baseList and target list. We want convert the third argument into the 
+-- target list THIS -> this 
+-- The two target lists will be the same size, so we have a 1-1 mapping. 
+-- Once this mapping is found, we can convert each character of the string(list of chars) to the target lists map. 
+-}
 encipher :: Eq a => [a] -> [a] -> [a] -> [a]
-encipher _ _ _ = undefined
+encipher baseLs targetLs ls = map encipherHelper ls
+  where 
+     encipherHelper i = case lookup i mapHelper of 
+          Just target -> target
+          Nothing -> i 
+     mapHelper = zip baseLs targetLs
 
 -- Exercise 10
 -- [1..10] -> [1,3,6,10,15,21,28,36,45,55]
