@@ -94,8 +94,14 @@ prefixSum ls = prefixSum' ls 0
     prefixSum' (x:ls) sum = (sum + x) : prefixSum' ls (sum + x) 
 
 -- Exercise 11
+{- The function select takes a predicate and two lists as arguments and returns a list composed
+of elements from the second list in those positions where the predicate, when applied to the
+element in the corresponding positions of the first list, returns True.
+-}
+-- 1) use zip to combine list into pairs 2) use filter to check which pairs first element satisfies the pred
+-- 3) Use map and the 'snd' to get the second element of the remaining pairs which will be sent to the output ls if satifies. 
 select :: (t -> Bool) -> [t] -> [a] -> [a]
-select _ _ _ = undefined
+select pred firstLs secondLs = map snd (filter (\(i, _) -> pred i) (zip firstLs secondLs))
 
 -- Exercise 12
 -- The function numbers which takes a list of integers as its argument and returns the integer
